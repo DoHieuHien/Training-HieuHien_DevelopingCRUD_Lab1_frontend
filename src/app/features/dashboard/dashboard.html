@@ -1,1 +1,7 @@
-<p>dashboard works!</p>
+<h2>Dashboard</h2>
+<p>Hello !!<b>{{ auth.getUsername() }}</b>, Role: <b>{{ auth.getRole() }}</b></p>
+
+<ul>
+  <li *appHasRole="importRoles"><a routerLink="/import">Import data</a></li>
+  <li><a routerLink="/list">List data</a></li>
+</ul>

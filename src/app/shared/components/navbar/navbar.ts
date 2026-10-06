@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { IMPORT_ROLES } from '../../../core/models/role';
+import { Auth } from '../../../core/services/auth';
+import { HasRole } from '../../directives/has-role';
 
 @Component({
-  imports: [],
   selector: 'app-navbar',
-  styleUrl: './navbar.css',
+  imports: [RouterLink, RouterLinkActive, HasRole],
   templateUrl: './navbar.html',
+  styleUrl: './navbar.css',
 })
-export class Navbar {}
+export class Navbar {
+  auth = inject(Auth);
+  importRoles = IMPORT_ROLES;
+}

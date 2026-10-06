@@ -1,1 +1,35 @@
-<p>list-data works!</p>
+<div class="toolbar">
+  <h2>List data</h2>
+  <button *appHasRole="exportRoles" (click)="export()">Export</button>
+</div>
+
+@if (loading()) { <p>Đang tải...</p> }
+@if (error()) { <p style="color:#dc2626">{{ error() }}</p> }
+
+@if (page(); as p) {
+  <table border="1" cellpadding="6" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+      <th>ID Data</th><th>Chi tiết</th><th>Ngày</th><th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (row of p.content; track row.id) {
+        <tr>
+          <td>{{ row.idData }}</td>
+          <td>{{ row.dataDetails }}</td>
+          <td>{{ row.dataDate }}</td>
+          <td><button (click)="view(row.id)">View detail</button></td>
+        </tr>
+      } @empty {
+        <tr><td colspan="4">Không có dữ liệu</td></tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="pager">
+    <button (click)="load(p.number - 1)" [disabled]="p.number === 0">Trước</button>
+    <span>Trang {{ p.number + 1 }} / {{ p.totalPages || 1 }}</span>
+    <button (click)="load(p.number + 1)" [disabled]="p.number + 1 >= p.totalPages">Sau</button>
+  </div>
+}

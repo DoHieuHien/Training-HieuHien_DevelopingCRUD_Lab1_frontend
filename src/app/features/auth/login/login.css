@@ -1,0 +1,5 @@
+.login-box { max-width: 360px; margin: 80px auto; padding: 24px; border: 1px solid #ddd; border-radius: 8px; }
+form { display: flex; flex-direction: column; gap: 8px; }
+input { padding: 8px; }
+.err { color: #dc2626; }
+button { margin-top: 8px; padding: 10px; cursor: pointer; }

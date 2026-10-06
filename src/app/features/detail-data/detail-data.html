@@ -1,1 +1,13 @@
-<p>detail-data works!</p>
+<a routerLink="/list">← Quay lại danh sách</a>
+<h2>Detail data</h2>
+
+@if (error()) { <p style="color:#dc2626">{{ error() }}</p> }
+
+@if (record(); as r) {
+  <table border="1" cellpadding="6" cellspacing="0">
+    <tr><th align="left">ID</th><td>{{ r.id }}</td></tr>
+    <tr><th align="left">ID Data</th><td>{{ r.idData }}</td></tr>
+    <tr><th align="left">Chi tiết</th><td>{{ r.dataDetails }}</td></tr>
+    <tr><th align="left">Ngày</th><td>{{ r.dataDate }}</td></tr>
+  </table>
+}

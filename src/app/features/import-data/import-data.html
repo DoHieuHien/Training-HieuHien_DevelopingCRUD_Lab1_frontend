@@ -1,1 +1,10 @@
-<p>import-data works!</p>
+<h2>Import data</h2>
+
+<input type="file" accept=".csv" (change)="onFileChange($event)" />
+<button (click)="import()" [disabled]="!file() || loading()">
+  {{ loading() ? 'Đang import...' : 'Import' }}
+</button>
+
+@if (message()) {
+  <p [style.color]="isError() ? '#dc2626' : '#16a34a'">{{ message() }}</p>
+}

@@ -1,1 +1,9 @@
-<p>navbar works!</p>
+<nav class="nav">
+  <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+  <a *appHasRole="importRoles" routerLink="/import" routerLinkActive="active">Import data</a>
+  <a routerLink="/list" routerLinkActive="active">List data</a>
+
+  <span class="spacer"></span>
+  <span>{{ auth.getUsername() }} ({{ auth.getRole() }})</span>
+  <button type="button" (click)="auth.logout()">Logout</button>
+</nav>

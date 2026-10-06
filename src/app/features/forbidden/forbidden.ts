@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
   selector: 'app-forbidden',
-  styleUrl: './forbidden.css',
+  imports: [RouterLink],
   templateUrl: './forbidden.html',
+  styleUrl: './forbidden.css',
 })
 export class Forbidden {}
