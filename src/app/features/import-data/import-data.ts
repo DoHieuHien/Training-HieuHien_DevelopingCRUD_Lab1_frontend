@@ -16,8 +16,20 @@ export class ImportData {
 
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
-    this.file.set(input.files?.[0] ?? null);
+    const selected = input.files?.[0] ?? null;
+
     this.message.set('');
+    this.isError.set(false);
+
+    if (selected && !selected.name.toLowerCase().endsWith('.csv')) {
+      this.file.set(null);
+      input.value = ''; // xóa file vừa chọn khỏi ô input
+      this.isError.set(true);
+      this.message.set('File không hợp lệ, chỉ chấp nhận file .csv');
+      return;
+    }
+
+    this.file.set(selected);
   }
 
   import(): void {
@@ -29,7 +41,7 @@ export class ImportData {
       next: (res) => {
         this.loading.set(false);
         this.isError.set(false);
-        this.message.set(`${res.message} (${res.count} dòng)`);
+        this.message.set(`${res.message} (${res.count})`);
       },
       error: (err) => {
         this.loading.set(false);
