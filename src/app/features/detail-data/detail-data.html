@@ -6,8 +6,9 @@
 @if (record(); as r) {
   <table border="1" cellpadding="6" cellspacing="0">
     <tr><th align="left">ID</th><td>{{ r.id }}</td></tr>
-    <tr><th align="left">ID Data</th><td>{{ r.idData }}</td></tr>
-    <tr><th align="left">Chi tiết</th><td>{{ r.dataDetails }}</td></tr>
-    <tr><th align="left">Ngày</th><td>{{ r.dataDate }}</td></tr>
+    <tr><th align="left">Title</th><td>{{ r.title }}</td></tr>
+    @for (item of r.payload | keyvalue; track item.key) {
+      <tr><th align="left">{{ item.key }}</th><td>{{ item.value }}</td></tr>
+    }
   </table>
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { EXPORT_ROLE } from '../../core/models/role';
 import { HasRole } from '../../shared/directives/has-role';
-import { Data, DataInfor, Page } from './data';
+import { Data, DataRecord, Page } from './data';
 
 @Component({
   selector: 'app-list-data',
@@ -15,7 +15,8 @@ export class ListData implements OnInit {
   private router = inject(Router);
 
   exportRoles = EXPORT_ROLE;
-  page = signal<Page<DataInfor> | null>(null);
+  page = signal<Page<DataRecord> | null>(null);
+  columns = signal<string[]>([]);
   loading = signal(false);
   error = signal('');
   size = 10;
@@ -30,6 +31,7 @@ export class ListData implements OnInit {
     this.dataService.list(pageIndex, this.size).subscribe({
       next: (res) => {
         this.page.set(res);
+        this.columns.set(res.content.length ? Object.keys(res.content[0].payload) : []);
         this.loading.set(false);
       },
       error: () => {
@@ -39,7 +41,7 @@ export class ListData implements OnInit {
     });
   }
 
-  view(id: number): void {
+  view(id: string): void {
     this.router.navigate(['/list', id]);
   }
 
