@@ -1,0 +1,37 @@
+<div class="toolbar">
+  <h2>Leagues</h2>
+  <button *appHasRole="exportRoles" (click)="export()">Export Excel</button>
+</div>
+
+@if (loading()) { <p>Đang tải...</p> }
+@if (error()) { <p style="color:#dc2626">{{ error() }}</p> }
+
+@if (page(); as p) {
+  <table border="1" cellpadding="6" cellspacing="0" width="100%">
+    <thead>
+    <tr><th>ID</th><th>Tên giải</th><th>Shortcut</th><th>Mùa</th><th>Môn</th><th>Import lần cuối</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      @for (l of p.content; track l.leagueId) {
+        <tr>
+          <td>{{ l.leagueId }}</td><td>{{ l.leagueName }}</td><td>{{ l.leagueShortcut }}</td>
+          <td>{{ l.leagueSeason }}</td><td>{{ l.sportName }}</td>
+          <td>{{ l.lastImportedAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+          <td>
+            @if (l.hasMatches) {
+              <button (click)="viewMatches(l)">View matches</button>
+            }
+          </td>
+        </tr>
+      } @empty {
+        <tr><td colspan="7">Chưa có dữ liệu. Hãy Import Leagues ở màn hình Import Data.</td></tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="pager">
+    <button (click)="load(p.page - 1)" [disabled]="p.page === 0">Trước</button>
+    <span>Trang {{ p.page + 1 }} / {{ p.totalPages || 1 }} ({{ p.totalElements }} bản ghi)</span>
+    <button (click)="load(p.page + 1)" [disabled]="p.page + 1 >= p.totalPages">Sau</button>
+  </div>
+}

@@ -1,0 +1,46 @@
+<h3>Import dữ liệu từ OpenLigaDB</h3>
+
+<div class="actions">
+  <button (click)="importLeagues()" [disabled]="loadingLeagues() || loadingMatches()">
+    {{ loadingLeagues() ? 'Đang import...' : 'Import Leagues' }}
+  </button>
+
+  @if (hasLeagues()) {
+    <button (click)="openPanel()" [disabled]="panelOpen() || loadingLeagues() || loadingMatches()">
+      Import Match
+    </button>
+  }
+</div>
+
+@if (panelOpen()) {
+  <div class="panel">
+    <select [ngModel]="selectedShortcut()" (ngModelChange)="onShortcutChange($event)"
+            [disabled]="loadingMatches()">
+      <option value="">-- Chọn giải (leagueShortcut) --</option>
+      @for (s of shortcuts(); track s.shortcut) {
+        <option [value]="s.shortcut">{{ s.shortcut }} - {{ s.name }}</option>
+      }
+    </select>
+
+    <select [ngModel]="selectedSeason()" (ngModelChange)="onSeasonChange($event)"
+            [disabled]="!selectedShortcut() || loadingMatches()">
+      <option value="">-- Chọn mùa (leagueSeason) --</option>
+      @for (y of seasons(); track y) {
+        <option [value]="y">{{ y }}</option>
+      }
+    </select>
+
+    @if (loadingMatches()) { <span>Đang import matches...</span> }
+    <button (click)="closePanel()" [disabled]="loadingMatches()">Hủy</button>
+  </div>
+}
+
+@if (message()) {
+  <p [style.color]="isError() ? '#dc2626' : '#16a34a'"><b>{{ message() }}</b></p>
+}
+
+@if (lastImported(); as li) {
+  <a routerLink="/matches" [queryParams]="{ leagueShortcut: li.shortcut, leagueSeason: li.season }">
+    Xem danh sách matches của {{ li.shortcut }} {{ li.season }} →
+  </a>
+}

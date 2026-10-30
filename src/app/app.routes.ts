@@ -8,6 +8,8 @@ import { DetailData } from './features/detail-data/detail-data';
 import { Forbidden } from './features/forbidden/forbidden';
 import { ImportData } from './features/import-data/import-data';
 import { ListData } from './features/list-data/list-data';
+import { LeaguesList } from './features/sport/leagues-list/leagues-list';
+import { MatchesList } from './features/sport/matches-list/matches-list';
 
 export const routes: Routes = [
   { path: 'login', component: Login },
@@ -31,6 +33,18 @@ export const routes: Routes = [
         data: { roles: ALL_ROLES },
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {
+        path: 'leagues',
+        component: LeaguesList,
+        canActivate: [roleGuard],
+        data: { roles: ALL_ROLES },
+      },
+      {
+        path: 'matches',
+        component: MatchesList,
+        canActivate: [roleGuard],
+        data: { roles: ALL_ROLES },
+      },
     ],
   },
   { path: '**', redirectTo: 'dashboard' },

@@ -1,0 +1,41 @@
+<div class="toolbar">
+  <h2>
+    Matches
+    @if (shortcut()) { <small>({{ shortcut() }} - {{ season() }})</small> }
+  </h2>
+  <button *appHasRole="exportRoles" (click)="export()">Export Excel</button>
+</div>
+
+<a routerLink="/leagues">← Quay lại Leagues</a>
+
+@if (loading()) { <p>Đang tải...</p> }
+@if (error()) { <p style="color:#dc2626">{{ error() }}</p> }
+
+@if (page(); as p) {
+  <table border="1" cellpadding="6" cellspacing="0" width="100%">
+    <thead>
+    <tr><th>Thời gian</th><th>Giải</th><th>Vòng</th><th>Đội 1</th><th>Tỉ số</th><th>Đội 2</th><th>Trạng thái</th></tr>
+    </thead>
+    <tbody>
+      @for (m of p.content; track m.matchId) {
+        <tr>
+          <td>{{ m.matchDateTime | date: 'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ m.leagueShortcut }} {{ m.leagueSeason }}</td>
+          <td>{{ m.groupName }}</td>
+          <td>{{ m.team1 }}</td>
+          <td>{{ m.score ?? '-' }}</td>
+          <td>{{ m.team2 }}</td>
+          <td>{{ m.finished ? 'Đã kết thúc' : 'Chưa kết thúc' }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="7">Chưa có trận đấu. Hãy Import Match ở màn hình Import Data.</td></tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="pager">
+    <button (click)="load(p.page - 1)" [disabled]="p.page === 0">Trước</button>
+    <span>Trang {{ p.page + 1 }} / {{ p.totalPages || 1 }} ({{ p.totalElements }} bản ghi)</span>
+    <button (click)="load(p.page + 1)" [disabled]="p.page + 1 >= p.totalPages">Sau</button>
+  </div>
+}
