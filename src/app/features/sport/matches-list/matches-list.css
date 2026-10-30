@@ -1,0 +1,270 @@
+
+/* ===== General ===== */
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 28px;
+  background: #f4f6f9;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #1e293b;
+  box-sizing: border-box;
+}
+
+/* ===== Toolbar ===== */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.toolbar h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: -0.5px;
+}
+
+.toolbar h2 small {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #64748b;
+  letter-spacing: normal;
+}
+
+/* ===== Buttons ===== */
+button {
+  padding: 9px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Export Excel */
+.toolbar button {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+}
+
+.toolbar button:hover:not(:disabled) {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+/* ===== Back to Leagues ===== */
+a[routerLink] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a[routerLink]:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+/* ===== Loading and Error ===== */
+:host > p {
+  margin: 12px 0;
+  font-size: 14px;
+}
+
+:host > p[style*="color"] {
+  padding: 12px 16px;
+  border: 1px solid #fecaca;
+  border-radius: 7px;
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* ===== Table ===== */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+thead {
+  background: #f1f5f9;
+}
+
+th {
+  padding: 15px 14px;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+td {
+  padding: 14px;
+  font-size: 14px;
+  color: #334155;
+  border-bottom: 1px solid #edf0f4;
+  vertical-align: middle;
+}
+
+/* Hover row */
+tbody tr {
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Match time */
+td:first-child {
+  color: #64748b;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* League */
+td:nth-child(2) {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Round */
+td:nth-child(3) {
+  color: #64748b;
+  white-space: nowrap;
+}
+
+/* Team names */
+td:nth-child(4),
+td:nth-child(6) {
+  min-width: 180px;
+  font-weight: 600;
+}
+
+/* Score */
+td:nth-child(5) {
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* Status */
+td:nth-child(7) {
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  color: #15803d;
+}
+
+/* Empty data */
+tbody td[colspan] {
+  padding: 32px 16px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* ===== Pagination ===== */
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.pager span {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.pager button {
+  min-width: 85px;
+}
+
+.pager button:not(:disabled) {
+  color: #2563eb;
+  border-color: #bfdbfe;
+  background: #ffffff;
+}
+
+.pager button:not(:disabled):hover {
+  background: #eff6ff;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  :host {
+    padding: 16px;
+  }
+
+  .toolbar {
+    align-items: flex-start;
+  }
+
+  .toolbar h2 {
+    font-size: 23px;
+  }
+
+  .toolbar h2 small {
+    font-size: 13px;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 1000px;
+  }
+
+  .pager {
+    justify-content: center;
+  }
+}

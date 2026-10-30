@@ -12,6 +12,7 @@
 @if (error()) { <p style="color:#dc2626">{{ error() }}</p> }
 
 @if (page(); as p) {
+  <div class="table-wrapper">
   <table border="1" cellpadding="6" cellspacing="0" width="100%">
     <thead>
     <tr><th>Thời gian</th><th>Giải</th><th>Vòng</th><th>Đội 1</th><th>Tỉ số</th><th>Đội 2</th><th>Trạng thái</th></tr>
@@ -32,7 +33,7 @@
       }
     </tbody>
   </table>
-
+  </div>
   <div class="pager">
     <button (click)="load(p.page - 1)" [disabled]="p.page === 0">Trước</button>
     <span>Trang {{ p.page + 1 }} / {{ p.totalPages || 1 }} ({{ p.totalElements }} bản ghi)</span>
